@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-function App() {
+const SeguidorCursor = ()=>{
   const [enabled, setEnabled]=useState(false)
   const [position, setPosition]= useState({x: -20 , y:-20})
 
@@ -17,27 +17,36 @@ function App() {
       window.removeEventListener('pointermove', handleMove)
     }
   },[enabled])
+  
+  return (
+  <>
+    <div style={
+      {
+        position: 'absolute',
+        backgroundColor: '#011',
+        border:"1px solid #000",
+        borderRadius: '50%',
+        opacity: 0.8,
+        pointerEvents:'none',
+        left:"-25px",
+        top:"-25px",
+        width: 50,
+        height:50,
+        transform: `translate(${position.x}px, ${position.y}px)`
+      }
+    }/>
+      <button onClick={()=> setEnabled(!enabled)}>
+        { enabled ? 'Desactivar': 'Activar'} seguimiento del puntero
+      </button>
+  </>)
+}
+
+function App() {
 
   return (
     <main>
-      <div style={
-        {
-          position: 'absolute',
-          backgroundColor: '#011',
-          border:"1px solid #000",
-          borderRadius: '50%',
-          opacity: 0.8,
-          pointerEvents:'none',
-          left:"-25px",
-          top:"-25px",
-          width: 50,
-          height:50,
-          transform: `translate(${position.x}px, ${position.y}px)`
-        }
-      }/>
-        <button onClick={()=> setEnabled(!enabled)}>
-          { enabled ? 'Desactivar': 'Activar'} seguimiento del puntero
-        </button>
+      <SeguidorCursor />
+
     </main>
   )
 }
